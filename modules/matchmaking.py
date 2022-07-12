@@ -323,7 +323,7 @@ class matchmaking(commands.Cog):
             return await ctx.send(f'You must be a registered player before hosting a match. Try `{ctx.prefix}setname Your Mobile Name`')
 
         on_team, player_team = models.Player.is_in_team(guild_id=ctx.guild.id, discord_member=ctx.author)
-        if settings.guild_setting(ctx.guild.id, 'require_teams') and not on_team:
+        if settings.guild_setting(ctx.guild.id, 'require_teams') and not on_team and not settings.is_mod(ctx.author):
             return await ctx.send('You must join a Team in order to participate in games on this server.')
 
         max_open = max(1, settings.get_user_level(ctx.author) * 3)
